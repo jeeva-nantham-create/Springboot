@@ -2,164 +2,157 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.SBDemoPrg.Entity.StudentDetailsEntity" %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Details</title>
-   
+    <title>Student Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            background: rgba(18, 18, 18, 0.95);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 30px;
+            z-index: 1000;
+        }
+
+        .logo h2 {
+            margin: 0;
+            font-size: 22px;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        .nav-items {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-items button {
+            padding: 8px 15px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-items button:hover {
+            background-color: #357abd;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 40px 0 20px;
+            font-size: 36px;
+            color: #fff;
+            text-shadow: 1px 1px 6px #000;
+        }
+
+        .outdiv {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px 40px;
+        }
+
+        .student-card {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            padding: 20px;
+            width: 280px;
+            transition: transform 0.3s ease;
+        }
+
+        .student-card:hover {
+            transform: scale(1.03);
+        }
+
+        .student-card h3 {
+            margin-top: 0;
+            font-size: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        .student-info {
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .no-data {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
-	 <div class="navbar">
-            <div class="logo">
-                <h2> Student Details Registration </h2>
-            </div>
-        
-            <div class="nav-items">
-            	<p><button onclick="location.href='/student-details/home'">Home</button></p>
-            	<p><button onclick="location.href='/student-details/alldetails'">Details</button></p>
-                <p><button onclick="location.href='/student-details/search-form'">Search</button></p>
-                <p><button onclick="location.href='/student-details/insert'">Insert</button></p>
-                <p><button onclick="location.href='/student-details/delete-student'">Delete</button></p>
-                <p><button onclick="location.href='/student-details/update'">Update</button></p><br></br>
-            </div>
-        </div> 
-        
-    <h1>Student Details</h1>
-
-    <div class="outdiv">
-       <table>
-            <tr>
-            	<th>Roll No</th>
-        		<th>Name</th>
-        		<th>Department</th>
-        		<th>Phone No</th>
-        		<th>Place</th>
-        		<th>Domain</th>
-            </tr>
-
-            <%
-            List<StudentDetailsEntity> students = (List<StudentDetailsEntity>) request.getAttribute("students");
-            if (students != null && !students.isEmpty()) {
-                for (StudentDetailsEntity student : students) {
-            %>    	
-                        <tr>
-                            <td><%= student.getRollNo() %></td>
-                            <td><%= student.getName() %></td>
-                            <td><%= student.getDepartment() %></td>
-                            <td><%= student.getPhoneNo() %></td>
-                            <td><%= student.getPlace() %></td>
-                            <td><%= student.getDomainName() %></td>
-                            
-                        </tr>
-            <%
-                    }
-                } else {
-            %>
-                    <tr><td colspan="4">No students found</td></tr>
-            <%
-                }
-            %>
-        </table>
+<div class="navbar">
+    <div class="logo">
+        <h2>Student Details Portal</h2>
     </div>
+    <div class="nav-items">
+        <button onclick="location.href='/student-details/home'">Home</button>
+        <button onclick="location.href='/student-details/alldetails'">Details</button>
+        <button onclick="location.href='/student-details/search-form'">Search</button>
+        <button onclick="location.href='/student-details/insert'">Insert</button>
+        <button onclick="location.href='/student-details/delete-student'">Delete</button>
+        <button onclick="location.href='/student-details/update'">Update</button>
+    </div>
+</div>
+
+<h1>Student Details</h1>
+
+<div class="outdiv">
+    <%
+        List<StudentDetailsEntity> students = (List<StudentDetailsEntity>) request.getAttribute("students");
+        if (students != null && !students.isEmpty()) {
+            for (StudentDetailsEntity student : students) {
+    %>
+        <div class="student-card">
+            <h3><%= student.getName() %> (Roll No: <%= student.getRollNo() %>)</h3>
+            <div class="student-info">
+                <p><strong>Department:</strong> <%= student.getDepartment() %></p>
+                <p><strong>Phone:</strong> <%= student.getPhoneNo() %></p>
+                <p><strong>Place:</strong> <%= student.getPlace() %></p>
+                <p><strong>Domain:</strong> <%= student.getDomainName() %></p>
+            </div>
+        </div>
+    <%
+            }
+        } else {
+    %>
+        <div class="no-data">No students found</div>
+    <%
+        }
+    %>
+</div>
+
 </body>
 </html>
-
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        background-image: url("https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-size: cover;
-    }
-
-    h1 {
-   		 text-align: center;
-         color: white;
-         margin-top: 30px;
-    }
-
-    .outdiv {
-        background-color: #e5e0f2;
-        border-radius: 10px;
-        padding: 30px;
-        margin: 40px auto;
-        width: 100%;
-        max-width: 1200px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background-color: white;
-        border-radius: 8px;
-        overflow: hidden;
-    }
-
-    th {
-        background-color: #2d3e50;
-        color: white;
-        padding: 12px;
-        text-align: left;
-        font-weight: 600;
-    }
-
-    td {
-        padding: 10px;
-        color: #333;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f0f4fa;
-    }
-
-    tr:hover {
-        background-color: #dde6f2;
-    }
-    
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-top:8px;
-    margin-bottom:7px;
-    padding: 10px 0px;
-    background-color: #1f2c3d;
-    height: 53px;
-    border-radius:10px;
-}
-.logo{
-	color:white;
-	position:relative;
-	left:10px;
-}
-
-.nav-items {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.nav-items button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 8px;
-    background-color: #2e3b4e;
-    color:white;
-    cursor: pointer;
-}
-
-.nav-items button:hover{
-    background-color: #606b7b;
-}
-    
-
-</style>

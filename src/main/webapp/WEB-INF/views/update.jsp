@@ -3,49 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Update</title>
-</head>
-<body>
-    <div class="navbar">
-        <div class="logo">
-            <h2>Student Details Registration</h2>
-        </div>
-        <div class="nav-items">
-            <p><button onclick="location.href='/student-details/home'">Home</button></p>
-            <p><button onclick="location.href='/student-details/alldetails'">Details</button></p>
-            <p><button onclick="location.href='/student-details/search-form'">Search</button></p>
-            <p><button onclick="location.href='/student-details/insert'">Insert</button></p>
-            <p><button onclick="location.href='/student-details/delete-student'">Delete</button></p>
-            <p><button onclick="location.href='/student-details/update'">Update</button></p>
-        </div>
-    </div>
-
-    <h1>Update Student Details</h1>
-    
-    <div class="form-container">
-        <form action="/student-details/update-form" method="get">
-            <input type="text" name="rollNo" placeholder="Enter Roll No to Update" required />
-            <button type="submit">Fetch & Update</button>
-        </form>
-    </div>
-
-    <div class="form-container">
-        <form action="/student-details/update-student" method="post">
-            <input type="hidden" name="id" value="${student.id}" />
-            <input type="text" name="name" value="${student.name}" placeholder="Name" required />
-            <input type="text" name="rollNo" value="${student.rollNo}" placeholder="Roll No" required />
-            <input type="text" name="department" value="${student.department}" placeholder="Department" required />
-            <input type="text" name="phone" value="${student.phoneNo}" placeholder="Phone Number" required />
-            <input type="text" name="place" value="${student.place}" placeholder="Place" required />
-            <input type="text" name="domain" value="${student.domainName}" placeholder="Domain Name" required />
-            <button type="submit">Update</button>
-        </form>
-    </div>
-
-
-</body>
-</html>
-
+    <title>Update Student Details</title>
     <style>
         body {
             background-image: url("https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80");
@@ -60,7 +18,7 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            margin-top:8px;
+            margin-top: 8px;
             padding: 10px 0px;
             background-color: #1f2c3d;
             height: 53px;
@@ -92,7 +50,7 @@
             background-color: #606b7b;
         }
 
-        h1 {
+        h1, h2 {
             text-align: center;
             color: white;
             margin-top: 30px;
@@ -107,10 +65,17 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
 
+        .form-container label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+            color: #1f2c3d;
+        }
+
         .form-container input {
             width: 100%;
             padding: 10px;
-            margin: 10px 0;
+            margin: 8px 0 15px;
             border: 1px solid #ccc;
             border-radius: 8px;
         }
@@ -130,3 +95,60 @@
             background-color: #37475a;
         }
     </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <h2>Student Details Registration</h2>
+        </div>
+        <div class="nav-items">
+            <p><button onclick="location.href='/student-details/home'">Home</button></p>
+            <p><button onclick="location.href='/student-details/alldetails'">Details</button></p>
+            <p><button onclick="location.href='/student-details/search-form'">Search</button></p>
+            <p><button onclick="location.href='/student-details/insert'">Insert</button></p>
+            <p><button onclick="location.href='/student-details/delete-student'">Delete</button></p>
+            <p><button onclick="location.href='/student-details/update'">Update</button></p>
+        </div>
+    </div>
+
+    <!-- Fetch Form -->
+    <h1>Update Student Details</h1>
+    <div class="form-container">
+        <h2>Search Student by Roll No</h2>
+        <form action="/student-details/update-form" method="get">
+            <label for="rollNoSearch">Roll No</label>
+            <input type="text" name="rollNo" id="rollNoSearch" placeholder="Enter Roll No to Update" required />
+            <button type="submit">Fetch & Update</button>
+        </form>
+    </div>
+
+    <!-- Update Form -->
+    <div class="form-container">
+        <h2>Update Form</h2>
+        <form action="/student-details/update-student" method="post">
+            <input type="hidden" name="id" value="${student.id}" />
+
+            <label>Name</label>
+            <input type="text" name="name" value="${student.name}" required />
+
+            <label>Roll No</label>
+            <input type="text" name="rollNo" value="${student.rollNo}" required />
+
+            <label>Department</label>
+            <input type="text" name="department" value="${student.department}" required />
+
+            <label>Phone Number</label>
+            <input type="text" name="phone" value="${student.phoneNo}" required />
+
+            <label>Place</label>
+            <input type="text" name="place" value="${student.place}" required />
+
+            <label>Domain Name</label>
+            <input type="text" name="domain" value="${student.domainName}" required />
+
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</body>
+</html>
