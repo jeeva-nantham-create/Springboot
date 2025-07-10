@@ -23,12 +23,12 @@ public class LoginController {
 	private LoginRepo loginrepo;
 	
 	@GetMapping
-	private String loginpage() {
+	public String loginpage() {
 		return "LoginPage";
 	}
 	
 	@GetMapping("/get-login-details")
-	private String getlogindetails(
+	public String getlogindetails(
 	        @RequestParam String useremail,
 	        @RequestParam String password,
 	        Model model) {
@@ -45,13 +45,13 @@ public class LoginController {
 	}
 	
 	@GetMapping("/signup")
-	private String signuppage() {
+	public String signuppage() {
 		return "Signup";
 	}
 	
 	
 	@PostMapping("/save-signup-details")
-	private String savesignupdetails(
+	public String savesignupdetails(
 			@RequestParam String useremail,
 			@RequestParam String username,
 			@RequestParam String password,

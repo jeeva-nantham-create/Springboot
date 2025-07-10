@@ -1,0 +1,40 @@
+services:
+  app:
+    build: .
+    ports: 
+      - "8090:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: jeeva@0307
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - spring-net
+
+  mysql:
+    image: mysql:8.0
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: jeeva@0307
+      MYSQL_DATABASE: db
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - spring-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--password=jeeva@0307"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  mysql_data:
+
+networks:
+  spring-net:
